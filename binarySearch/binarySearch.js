@@ -22,8 +22,30 @@ var swaps = 0;
 var totalComparisons = 0;
 var totalSwaps = 0;
 
+var iterations = 10000;
+var arrayLength = 1000;
+var maxValue = 2000;
+
 function bubbleSort(array) {
-	return sorted;
+	console.log("Bubble sorting...");
+
+	var hold;
+
+	for (var i = 0; i < array.length - 2; i++) {
+		for (var j = i; j < array.length - 2; j++) {
+			comparisons += 1;
+
+			if (array[j] > array[j + 1]) {
+				hold = array[j];
+				array[j] = array[j + 1];
+				array[j + 1] = hold;
+
+				swaps += 3
+			}
+		}
+	}
+
+	return array;
 }
 
 function insertionSort(array) {
@@ -43,10 +65,10 @@ function getRandomInt(max) {
 }
 
 function generateArray() {
-	var array = new Array(1000);
+	var array = new Array(arrayLength);
 
 	for (var i = 0; i < array.length; i++) {
-		array[i] = getRandomInt(5000);
+		array[i] = getRandomInt(maxValue);
 	}
 
 	return array;
@@ -64,47 +86,45 @@ function simpleSearch(array, target) {
 	return -1;
 }
 
-function binarySearch(array, target) {
-	var lo = 0;
-	var hi = array.length;
+function binarySearch(data, target) {
+	comparisons = 0;
 
-	var found = false;
+	var lo = 0;
+	var hi = data.length - 1;
 
 	var testAt;
 	var testVal;
 
-	while (! found && (lo < hi) && (comparisons < array.length)) {
-		testAt = (lo + hi) / 2; // integer division
-		testVal = array[testAt];
+	while (lo <= hi) {
+		testAt = ~~((lo + hi) / 2); // integer division
+		testVal = data[testAt];
+
+//		console.log("Looking for " + target + " - Found: " + testVal);
 
 		if (testVal == target) {
 			comparisons += 1;
 
-			found = testAt;
+			return testAt;
 		} else if (testVal < target) {
 			comparisons += 1;
 
-			lo = testAt;
+			lo = testAt + 1;
 		} else {
-			hi = testAt;
+			hi = testAt - 1;
 		}
 	}
 
-	if (found) {
-		return found;
-	} else {
-		return -1;
-	}
+	return -1;
 }
 
-var iterations = 100;
 var totalChecks = 0;
 var misses = 0;
 
-for (var loop = 0; loop < iterations; loop++) {
-	var workWith = generateArray();
+var workWith = generateArray();
 
-	var searchTarget = getRandomInt(5000);
+for (var loop = 0; loop < iterations; loop++) {
+
+	var searchTarget = getRandomInt(maxValue);
 
 	var foundAt = simpleSearch(workWith, searchTarget);
 	
@@ -120,16 +140,41 @@ for (var loop = 0; loop < iterations; loop++) {
 	}
 }
 
+console.log("Simple search....");
+
 console.log("After " + iterations + " iterations, we have performed a total of " + totalChecks + " tests to find a random search value");
 console.log("Failed to find the number " + misses + " times...");
 console.log("The average number of checks being: " + (totalChecks / iterations));
 
-console.log("Simple test of binary search");
 
-var binTestArr = [0,1,2,3,4,5,6,7,8,9];
+totalComparisons = 0;
+totalSwaps = 0;
 
 comparisons = 0;
 swaps = 0;
 
-console.log("Search for 3...");
-console.log("Found at: " + binarySearch(binTestArr, 3));
+console.log("Sort array....");
+
+var binTestArr = bubbleSort(workWith); // bubble sort array
+
+totalComparisons += comparisons;
+totalSwaps += swaps;
+
+console.log("Binary search....");
+
+misses = 0;
+
+for (var loop = 0; loop < iterations; loop++) {
+	var searchTarget = getRandomInt(maxValue);
+
+	if (binarySearch(binTestArr, searchTarget) == -1) {
+		misses += 1;
+	}
+
+	totalComparisons += comparisons;
+}
+
+console.log("After " + iterations + " iterations, we have performed a total of " + totalComparisons + " tests to find a random search value");
+console.log("Failed to find the number " + misses + " times...");
+console.log("The average number of checks being: " + (totalComparisons / iterations));
+console.log("Besides the additional comparisons...The sort generated " + totalSwaps + " swaps");
