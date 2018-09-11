@@ -177,3 +177,4 @@ console.log("After " + iterations + " iterations, we have performed a total of "
 console.log("Failed to find the number " + misses + " times...");
 console.log("The average number of checks being: " + (totalComparisons / iterations));
 console.log("Besides the additional comparisons...The sort generated " + totalSwaps + " swaps");
+console.log("That makes " + (totalSwaps / iterations) + " swaps per search");
