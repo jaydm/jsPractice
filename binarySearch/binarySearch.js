@@ -26,6 +26,8 @@ var iterations = 10000;
 var arrayLength = 1000;
 var maxValue = 2000;
 
+var guesses = [];
+
 function bubbleSort(array) {
 	console.log("Bubble sorting...");
 
@@ -123,20 +125,17 @@ var misses = 0;
 var workWith = generateArray();
 
 for (var loop = 0; loop < iterations; loop++) {
-
 	var searchTarget = getRandomInt(maxValue);
+
+	guesses[guesses.length] = searchTarget;
 
 	var foundAt = simpleSearch(workWith, searchTarget);
 	
 	if (foundAt == -1) {
 		misses += 1;
 		totalChecks += workWith.length;
-
-//		console.log("Target (" + searchTarget + ") not found in array...");
 	} else {
 		totalChecks += foundAt;
-
-//		console.log("Target (" + searchTarget + ") found at position: " + foundAt);
 	}
 }
 
@@ -165,7 +164,7 @@ console.log("Binary search....");
 misses = 0;
 
 for (var loop = 0; loop < iterations; loop++) {
-	var searchTarget = getRandomInt(maxValue);
+	var searchTarget = guesses[loop];
 
 	if (binarySearch(binTestArr, searchTarget) == -1) {
 		misses += 1;
