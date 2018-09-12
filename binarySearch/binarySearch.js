@@ -33,19 +33,30 @@ function bubbleSort(array) {
 
 	var hold;
 
-	for (var i = 0; i < array.length - 2; i++) {
-		for (var j = i; j < array.length - 2; j++) {
+	var clean = false;
+
+	while (! clean) {
+		clean = true;
+
+//		console.log(array);
+
+		for (var i = 0; i < array.length - 1; i++) {
 			comparisons += 1;
 
-			if (array[j] > array[j + 1]) {
-				hold = array[j];
-				array[j] = array[j + 1];
-				array[j + 1] = hold;
+			if (array[i] > array[i + 1]) {
+				hold = array[i];
+				array[i] = array[i + 1];
+				array[i + 1] = hold;
 
-				swaps += 3
+				swaps += 3;
+				clean = false;
+
+//				console.log(array);
 			}
 		}
 	}
+
+//	console.log(array);
 
 	return array;
 }
