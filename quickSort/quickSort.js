@@ -18,27 +18,60 @@ function generateArray() {
 	return array;
 }
 
-function quicksort(array) {
-	if (array.length < 2) {
-		return array;
-	} else {
-		var pivot = array[0];
+// helper function to perform the swap
+function swap(array, i, j) {
+	var hold = array[i];
 
-		var less = [];
-		var greater = [];
+	array[i] = array[j];
+	array[j] = hold;
+}
 
-		for (var i = 1; i < array.length; i++) {
-			var val = array[i];
+// this is an in-place function that runs within the
+// passed in array moving every element that is
+// less than the value in the pivot element which in
+// this implementation is the last value in the range.
+// which is the reason for the final swap moving the
+// rightmost element of the range into the position
+// just to the right of the subarray built up of
+// elements less than the pivot value. If the
+// implementation were using a different element as
+// the pivot value - then the last swap would need
+// to be adjusted accordingly
+function partition(array, pivot, left, right) {
+	var pivotValue = array[pivot];
+	var partitionIndex = left;
 
-			if (val <= pivot) {
-				less.push(val);
-			} else {
-				greater.push(val);
-			}
+	for (var i = left; i < right; i++) {
+		if (array[i] < pivotValue) {
+			swap(array, i, partitionIndex);
+			partitionIndex++;
 		}
 	}
 
-	return [].push.apply(less, [pivot], greater);
+	swap(array, right, partitionIndex);
+
+	return partitionIndex;
+}
+
+function quicksort(array, left, right) {
+	if (typeof left == "undefined") {
+		left = 0;
+		right = array.length -1;
+	}
+
+	if (typeof right == "undefinded") {
+		right = array.length - 1;
+	}
+
+	if (left < right) {
+		var pivot = right;
+		var partitionIndex = partition(array, pivot, left, right);
+
+		quicksort(array, left, partitionIndex - 1);
+		quicksort(array, partitionIndex + 1, right);
+	}
+
+	return array;
 }
 
 for (var loop = 0; loop < iterations; loop++) {
@@ -47,7 +80,7 @@ for (var loop = 0; loop < iterations; loop++) {
 	console.log("Iteration: " + loop);
 
 	console.log("Initial Array: " + arr);
-	console.log("Final Array: " + quicksort(arr));
+	console.log(" Final Array: " + quicksort(arr));
 }
 
 
