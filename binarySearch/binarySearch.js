@@ -56,7 +56,27 @@ function bubbleSort(array) {
 }
 
 function insertionSort(array) {
-	return sorted;
+	console.log("Insertion sorting...");
+
+	var hold;
+
+	for (var i = 1; i < array.length; i++) {
+		for (var j = i; j > 0; j--) {
+			comparisons += 1;
+
+			if (array[j] < array[j - 1]) {
+				hold = array[j];
+				array[j] = array[j - 1];
+				array[j - 1] = hold;
+
+				swaps += 3;
+			} else {
+				continue; // stop checking as soon as possible to reduce the number of comparisons
+			}
+		}
+	}
+
+	return array;
 }
 
 function selectionSort(array) {
@@ -159,7 +179,8 @@ swaps = 0;
 
 console.log("Sort array....");
 
-var binTestArr = bubbleSort(workWith); // bubble sort array
+// var binTestArr = bubbleSort(workWith); // bubble sort array
+var binTestArr = insertionSort(workWith); // insertion sort array
 
 totalComparisons += comparisons;
 totalSwaps += swaps;
