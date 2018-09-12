@@ -22,8 +22,8 @@ var swaps = 0;
 var totalComparisons = 0;
 var totalSwaps = 0;
 
-var iterations = 10000;
-var arrayLength = 1000;
+var iterations = 10;
+var arrayLength = 10;
 var maxValue = 2000;
 
 var guesses = [];
@@ -178,3 +178,13 @@ console.log("Failed to find the number " + misses + " times...");
 console.log("The average number of checks being: " + (totalComparisons / iterations));
 console.log("Besides the additional comparisons...The sort generated " + totalSwaps + " swaps");
 console.log("That makes " + (totalSwaps / iterations) + " swaps per search");
+
+console.log("");
+
+for (var loop = 0; loop < iterations; loop++) {
+	var arr = generateArray();
+
+	console.log("Here is the unsorted array: " + arr);
+	console.log("  Here is the sorted array: " + bubbleSort(arr));
+	console.log("");
+}
