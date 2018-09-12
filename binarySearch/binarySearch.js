@@ -14,7 +14,7 @@
 // 1) bubble - bubble the largest number to the top until the whole array is inspected and no swaps occurred
 // 2) insertion - interate through the list from beginning to end allowing the inspected value to fall forward to it's sorted place
 // 3) selection - interate through the list from the beginning...find the next lowest value and build a sorted list at the front
-// 4) hybrid bubble - standard bubble plus keep drag smallest to the beginning
+// 4) decided not to bother trying: hybrid bubble - standard bubble plus keep drag smallest to the beginning
 
 var comparisons = 0;
 var swaps = 0;
