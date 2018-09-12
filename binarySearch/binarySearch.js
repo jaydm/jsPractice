@@ -56,7 +56,7 @@ function bubbleSort(array) {
 }
 
 function insertionSort(array) {
-	console.log("Insertion sorting...");
+//	console.log("Insertion sorting...");
 
 	var hold;
 
@@ -80,7 +80,30 @@ function insertionSort(array) {
 }
 
 function selectionSort(array) {
-	return sorted;
+//	console.log("Selection sort...");
+
+	var hold;
+	var minPos;
+
+	for (var i = 0; i < array.length - 1; i++) {
+		minPos = i;
+
+		for (var j = i + 1; j < array.length; j++) {
+			comparisons += 1;
+
+			if (array[j] < array[minPos]) {
+				minPos = j;
+			}
+		}
+
+		hold = array[i];
+		array[i] = array[minPos];
+		array[minPos] = hold;
+
+		swaps += 3;
+	}
+
+	return array;
 }
 
 function hybridBubbleSort(array) {
@@ -180,7 +203,8 @@ swaps = 0;
 console.log("Sort array....");
 
 // var binTestArr = bubbleSort(workWith); // bubble sort array
-var binTestArr = insertionSort(workWith); // insertion sort array
+// var binTestArr = insertionSort(workWith); // insertion sort array
+var binTestArr = selectionSort(workWith); // selection sort array
 
 totalComparisons += comparisons;
 totalSwaps += swaps;
