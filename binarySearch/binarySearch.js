@@ -22,14 +22,14 @@ var swaps = 0;
 var totalComparisons = 0;
 var totalSwaps = 0;
 
-var iterations = 10;
-var arrayLength = 10;
-var maxValue = 2000;
+var iterations = 10000;
+var arrayLength = 10000;
+var maxValue = 5000;
 
 var guesses = [];
 
 function bubbleSort(array) {
-	console.log("Bubble sorting...");
+//	console.log("Bubble sorting...");
 
 	var hold;
 
@@ -37,8 +37,6 @@ function bubbleSort(array) {
 
 	while (! clean) {
 		clean = true;
-
-//		console.log(array);
 
 		for (var i = 0; i < array.length - 1; i++) {
 			comparisons += 1;
@@ -50,13 +48,9 @@ function bubbleSort(array) {
 
 				swaps += 3;
 				clean = false;
-
-//				console.log(array);
 			}
 		}
 	}
-
-//	console.log(array);
 
 	return array;
 }
@@ -190,12 +184,3 @@ console.log("The average number of checks being: " + (totalComparisons / iterati
 console.log("Besides the additional comparisons...The sort generated " + totalSwaps + " swaps");
 console.log("That makes " + (totalSwaps / iterations) + " swaps per search");
 
-console.log("");
-
-for (var loop = 0; loop < iterations; loop++) {
-	var arr = generateArray();
-
-	console.log("Here is the unsorted array: " + arr);
-	console.log("  Here is the sorted array: " + bubbleSort(arr));
-	console.log("");
-}
