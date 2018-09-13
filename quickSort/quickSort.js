@@ -136,15 +136,17 @@ function binarySearch(data, target) {
 
 //		console.log("Looking for " + target + " - Found: " + testVal);
 
-		if (testVal == target) {
-			comparisons += 1;
+		comparisons += 1;
 
+		if (testVal == target) {
 			return testAt;
 		} else if (testVal < target) {
 			comparisons += 1;
 
 			lo = testAt + 1;
 		} else {
+			comparisons += 1;
+
 			hi = testAt - 1;
 		}
 	}
