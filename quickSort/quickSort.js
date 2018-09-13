@@ -1,8 +1,19 @@
 // Quick sort (recursive, divide and conquer)
 
-var arrSize = 10;
+var arrSize = 1000;
 var maxValue = 2000;
 var iterations = 10;
+
+var comparisons;
+var swaps;
+
+var totalSwaps;
+var totalComparisons;
+
+function initializeCounters() {
+	comparisons = 0;
+	swaps = 0;
+}
 
 function getRandomInt(max) {
 	return Math.floor(Math.random() * Math.floor(max));
@@ -24,6 +35,8 @@ function swap(array, i, j) {
 
 	array[i] = array[j];
 	array[j] = hold;
+
+	swaps += 3;
 }
 
 // this is an in-place function that runs within the
@@ -42,6 +55,8 @@ function partition(array, pivot, left, right) {
 	var partitionIndex = left;
 
 	for (var i = left; i < right; i++) {
+		comparisons += 1;
+
 		if (array[i] < pivotValue) {
 			swap(array, i, partitionIndex);
 			partitionIndex++;
@@ -74,13 +89,105 @@ function quicksort(array, left, right) {
 	return array;
 }
 
+function selectionSort(array) {
+	var minPos;
+
+	for (var i = 0; i < array.length - 1; i++) {
+		minPos = i;
+
+		for (var j = i + 1; j < array.length; j++) {
+			comparisons += 1;
+
+			if (array[j] < array[minPos]) {
+				minPos = j;
+			}
+		}
+
+		swap(array, i, minPos);
+	}
+
+	return array;
+}
+
+function simpleSearch(array, target) {
+	for (var i = 0; i < array.length; i++) {
+		comparisons += 1;
+
+		if (array[i] == target) {
+			return i;
+		}
+	}
+
+	return -1;
+}
+
+function binarySearch(data, target) {
+	comparisons = 0;
+
+	var lo = 0;
+	var hi = data.length - 1;
+
+	var testAt;
+	var testVal;
+
+	while (lo <= hi) {
+		testAt = ~~((lo + hi) / 2); // integer division
+		testVal = data[testAt];
+
+//		console.log("Looking for " + target + " - Found: " + testVal);
+
+		if (testVal == target) {
+			comparisons += 1;
+
+			return testAt;
+		} else if (testVal < target) {
+			comparisons += 1;
+
+			lo = testAt + 1;
+		} else {
+			hi = testAt - 1;
+		}
+	}
+
+	return -1;
+}
+
+function dumpCounters() {
+	console.log("Comparisons: " + comparisons);
+	console.log("Swaps: " + swaps);
+	console.log("");
+
+	initializeCounters();
+}
+
 for (var loop = 0; loop < iterations; loop++) {
 	var arr = generateArray();
+	var target = getRandomInt(maxValue);
 
 	console.log("Iteration: " + loop);
 
-	console.log("Initial Array: " + arr);
-	console.log(" Final Array: " + quicksort(arr));
+	var foundAt = simpleSearch(arr, target);
+
+	if (foundAt !== -1) {
+		console.log("Simple search found the result at pos: " + foundAt);
+	} else {
+		console.log("Simple search could not find the result!");
+	}
+
+	dumpCounters();
+
+	console.log("Binary search w/ selection sort...");
+
+	var selArr = selectionSort(arr);
+	foundAt = binarySearch(arr, target);
+
+        if (foundAt !== -1) {
+                console.log("Binary search found the result at pos: " + foundAt);
+        } else {
+                console.log("Binary search could not find the result!");
+        }
+
+        dumpCounters();
 }
 
 
