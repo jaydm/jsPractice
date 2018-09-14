@@ -12,6 +12,41 @@ BinaryTree.prototype = {
 	constructor: BinaryTree,
 
 	add: function(value) {
+		var node = {
+				value: value,
+				left: null;
+				right: null;
+		};
+
+		var current;
+
+		if (this._root == null) { // empty initial tree
+			this._root = node;
+		} else {
+			current = this._root; // start at the beginning...find where to add node
+
+			while (true) { // keep going till we find a place to insert the node
+				if (value < current.value) {
+					if (current.left == null) {
+						current.left = node;
+
+						break;
+					} else {
+						current = current.left;
+					}
+				} else {
+					if (current.right == null) {
+						current.right = node;
+
+						break;
+					} else {
+						current = current.right;
+					}
+				} else {
+					break; // value already in tree
+				}
+			}
+		}
 	},
 
 	contains: function(value) {
