@@ -50,6 +50,31 @@ BinaryTree.prototype = {
 	},
 
 	contains: function(value) {
+		if (this._root == null) {
+			return false;
+		} else if (this._root.value == value) {
+			return true;
+		} else {
+			var current = this._root;
+
+			while (true) {
+				if (value < current.value) {
+					if (current.left == null) {
+						return false;
+					} else {
+						current = current.left;
+					}
+				} else if (value > current.value) {
+					if (current.right == null) {
+						return false;
+					} else {
+						current = current.right;
+					}
+				} else {
+					return true;
+				}
+			}
+		}
 	},
 
 	remove: function(value) {
