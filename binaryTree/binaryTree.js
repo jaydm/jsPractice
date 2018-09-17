@@ -85,6 +85,17 @@ BinaryTree.prototype = {
 		}
 	},
 
+	max: function(node) {
+		if (node.right == null) {
+			return node.value;
+		} else {
+			return max(node.right);
+		}
+	},
+
+	traverse: function() {
+	},
+
 	remove: function(value) {
 	},
 
