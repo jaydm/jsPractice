@@ -77,7 +77,7 @@ BinaryTree.prototype = {
 		}
 	},
 
-	min: function(node) {
+	min: function min(node) {
 		if (node.left == null) {
 			return node.value;
 		} else {
@@ -85,7 +85,7 @@ BinaryTree.prototype = {
 		}
 	},
 
-	max: function(node) {
+	max: function max(node) {
 		if (node.right == null) {
 			return node.value;
 		} else {
@@ -93,16 +93,12 @@ BinaryTree.prototype = {
 		}
 	},
 
-	traverse: function(node) {
-		if (typeof node == "undefined") {
-			node = this._root;
-		}
-
+	traverse: function traverse(node) {
 		if (node == null) {
-			return;
+			return "";
 		}
 
-		return traverse(node.left) + " " + node.value + traverse(node.right);
+		return traverse(node.left) + " " + node.value + " " + traverse(node.right);
 	},
 
 	remove: function(value) {
@@ -121,6 +117,8 @@ BinaryTree.prototype = {
 
 var tree = new BinaryTree();
 
-tree.add(5);
+for (var i = 0; i < 100; i++) {
+	tree.add(Math.floor(1000 * Math.random()));
+}
 
-tree.traverse();
+console.log(tree.traverse(tree._root));
