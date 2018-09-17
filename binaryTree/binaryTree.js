@@ -77,6 +77,14 @@ BinaryTree.prototype = {
 		}
 	},
 
+	min: function(node) {
+		if (node.left == null) {
+			return node.value;
+		} else {
+			return min(node.left);
+		}
+	},
+
 	remove: function(value) {
 	},
 
