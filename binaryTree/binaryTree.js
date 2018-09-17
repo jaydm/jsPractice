@@ -14,8 +14,8 @@ BinaryTree.prototype = {
 	add: function(value) {
 		var node = {
 				value: value,
-				left: null;
-				right: null;
+				left: null,
+				right: null
 		};
 
 		var current;
@@ -34,7 +34,7 @@ BinaryTree.prototype = {
 					} else {
 						current = current.left;
 					}
-				} else {
+				} else if (value > current.value) {
 					if (current.right == null) {
 						current.right = node;
 
@@ -93,7 +93,16 @@ BinaryTree.prototype = {
 		}
 	},
 
-	traverse: function() {
+	traverse: function(node) {
+		if (typeof node == "undefined") {
+			node = this._root;
+		}
+
+		if (node == null) {
+			return;
+		}
+
+		return traverse(node.left) + " " + node.value + traverse(node.right);
 	},
 
 	remove: function(value) {
@@ -109,3 +118,9 @@ BinaryTree.prototype = {
 	}
 };
 
+
+var tree = new BinaryTree();
+
+tree.add(5);
+
+tree.traverse();
